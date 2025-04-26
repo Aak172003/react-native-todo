@@ -47,13 +47,13 @@ const TodoItem: FC<TodoItemProps> = ({
           <Text style={styles.tickButton}>{todo.completed ? '✅' : '❌'}</Text>
         </TouchableOpacity>
 
-        {!todo.completed ? (
+        {!todo.completed && (
           <TouchableOpacity
             onPress={() => setIsEditing(true)}
             style={styles.editButton}>
             <Text style={styles.textButton}>{TEXT_EDIT}</Text>
           </TouchableOpacity>
-        ) : null}
+        )}
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => onDeleteTodo(todo.id)}>
