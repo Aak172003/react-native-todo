@@ -1,130 +1,87 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+import {StyleSheet, Text, View} from 'react-native';
+import TodoInput from './src/components/TodoInput';
+import {useState} from 'react';
+import TodoList from './src/components/TodoList';
+import {Todo} from './src/types';
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [todoList, setTodoList] = useState<Todo[]>([]);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const addTodo = (text: string) => {
+    setTodoList([
+      ...todoList,
+      {id: Date.now().toString(), text, completed: false},
+    ]);
   };
 
-  /*
-   * To keep the template simple and small we're adding padding to prevent view
-   * from rendering under the System UI.
-   * For bigger apps the recommendation is to use `react-native-safe-area-context`:
-   * https://github.com/AppAndFlow/react-native-safe-area-context
-   *
-   * You can read more about it here:
-   * https://github.com/react-native-community/discussions-and-proposals/discussions/827
-   */
-  const safePadding = '5%';
+  const deleteTodo = (id: string) => {
+    setTodoList(todoList.filter(todo => todo.id !== id));
+  };
+
+  const toggleTodo = (id: string) => {
+    setTodoList(
+      todoList.map(todo =>
+        todo.id === id ? {...todo, completed: !todo.completed} : todo,
+      ),
+    );
+  };
+
+  const editTodo = (id: string, newText: string) => {
+
+
+    
+    console.log('newText', newText);
+    setTodoList(
+      todoList.map(todo =>
+        todo.id === id ? {...todo, text: newText} : todo,
+      ),
+    );
+  };
 
   return (
-    <View style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <View style={styles.container}>
+      <Text style={styles.headerText}>Todo App</Text>
+
+      <TodoInput onAddTodo={addTodo} />
+
+      {/* <View style={styles.todoList}>
+        {todos.map(todo => {
+          return (
+            <View key={todo.id}>
+              <Text>{todo.id}</Text>
+              <Text>{todo.text}</Text>
+              <Text>{todo.completed ? 'Completed' : 'Not Completed'}</Text>
+            </View>
+          );
+        })}
+      </View> */}
+
+      <TodoList
+        onDeleteTodo={deleteTodo}
+        onToggleTodo={toggleTodo}
+        onEditTodo={editTodo}
+        todoList={todoList}
       />
-      <ScrollView
-        style={backgroundStyle}>
-        <View style={{paddingRight: safePadding}}>
-          <Header/>
-        </View>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            paddingHorizontal: safePadding,
-            paddingBottom: safePadding,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    padding: 20,
+    marginBottom: 20,
+    marginTop: 20,
+    alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  todoList: {
+    flex: 1,
+    width: '100%',
   },
 });
 
