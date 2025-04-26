@@ -29,12 +29,12 @@ const TodoEdit: FC<TodoEditProps> = ({todo, onSaveTodo, onCancelTodo}) => {
       />
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleSaveTodo}>
-          <Text>Save</Text>
+        <TouchableOpacity style={styles.saveButton} onPress={handleSaveTodo}>
+          <Text style={styles.saveButtonText}>Save</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={onCancelTodo}>
-          <Text>Cancel</Text>
+        <TouchableOpacity style={styles.cancelButton} onPress={onCancelTodo}>
+          <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 5,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 1,
     borderColor: '#ccc',
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     paddingVertical: 5,
     borderRadius: 5,
     marginRight: 10,
@@ -63,10 +63,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
   },
-  button: {
-    backgroundColor: 'blue',
+
+  cancelButton: {
+    backgroundColor: 'red',
     padding: 5,
     borderRadius: 5,
+  },
+  saveButton: {
+    backgroundColor: 'green',
+    padding: 5,
+    borderRadius: 5,
+  },
+  saveButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  cancelButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });
 

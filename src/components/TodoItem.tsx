@@ -104,9 +104,10 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   tickButton: {
-    // backgroundColor: 'green',
     padding: 5,
     borderRadius: 5,
   },
