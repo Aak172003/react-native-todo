@@ -7,11 +7,10 @@ import {
 } from 'react-native';
 import React, {FC, useState} from 'react';
 import {TodoEditProps} from '../types';
+import { TEXT_CANCEL, TEXT_SAVE } from '../../text';
 
 const TodoEdit: FC<TodoEditProps> = ({todo, onSaveTodo, onCancelTodo}) => {
   const [editedText, setEditedText] = useState(todo.text);
-
-  console.log(' from todoedit component editedText', editedText);
 
   const handleSaveTodo = () => {
     if (editedText.trim()) {
@@ -30,11 +29,11 @@ const TodoEdit: FC<TodoEditProps> = ({todo, onSaveTodo, onCancelTodo}) => {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.saveButton} onPress={handleSaveTodo}>
-          <Text style={styles.saveButtonText}>Save</Text>
+          <Text style={styles.saveButtonText}>{TEXT_SAVE}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.cancelButton} onPress={onCancelTodo}>
-          <Text style={styles.cancelButtonText}>Cancel</Text>
+          <Text style={styles.cancelButtonText}>{TEXT_CANCEL}</Text>
         </TouchableOpacity>
       </View>
     </View>

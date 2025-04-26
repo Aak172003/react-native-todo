@@ -27,14 +27,8 @@ function App(): React.JSX.Element {
   };
 
   const editTodo = (id: string, newText: string) => {
-
-
-    
-    console.log('newText', newText);
     setTodoList(
-      todoList.map(todo =>
-        todo.id === id ? {...todo, text: newText} : todo,
-      ),
+      todoList.map(todo => (todo.id === id ? {...todo, text: newText} : todo)),
     );
   };
 

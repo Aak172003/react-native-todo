@@ -1,4 +1,4 @@
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import React, {FC} from 'react';
 import {TodoListProps} from '../types';
 import TodoItem from './TodoItem';

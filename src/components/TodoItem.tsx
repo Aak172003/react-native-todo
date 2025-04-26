@@ -2,6 +2,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React, {FC, useState} from 'react';
 import {TodoItemProps} from '../types';
 import TodoEdit from './TodoEdit';
+import {TEXT_DELETE, TEXT_EDIT} from '../../text';
 
 const TodoItem: FC<TodoItemProps> = ({
   todo,
@@ -12,8 +13,6 @@ const TodoItem: FC<TodoItemProps> = ({
   console.log('todo from todoitem component', todo);
 
   const [isEditing, setIsEditing] = useState(false);
-
-  console.log('isEditing', isEditing);
 
   if (isEditing) {
     return (
@@ -48,16 +47,17 @@ const TodoItem: FC<TodoItemProps> = ({
           <Text style={styles.tickButton}>{todo.completed ? '✅' : '❌'}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => setIsEditing(true)}
-          style={styles.editButton}>
-          <Text style={styles.textButton}>Edit</Text>
-        </TouchableOpacity>
-
+        {!todo.completed ? (
+          <TouchableOpacity
+            onPress={() => setIsEditing(true)}
+            style={styles.editButton}>
+            <Text style={styles.textButton}>{TEXT_EDIT}</Text>
+          </TouchableOpacity>
+        ) : null}
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => onDeleteTodo(todo.id)}>
-          <Text style={styles.textButton}>Delete</Text>
+          <Text style={styles.textButton}>{TEXT_DELETE}</Text>
         </TouchableOpacity>
       </View>
     </View>
